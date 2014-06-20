@@ -191,7 +191,7 @@ if __name__ == "__main__":
     # Keep in mind that a pet *must* have a breed, but it may or may not have a shelter.
 
     # Next, add two shelters to the database. The first shelter's name is "NYC Pet Orphanage",
-    # and its number is 212-555-5555. The second shelter's name is "New Orleans Pet Hotel" and 
+    # and its website is "http://www.nyc-pet-orphanage.com. The second shelter's name is "New Orleans Pet Hotel" and 
     # its website is "http://www.neworleanspethotel.com". 
     # Add the shelters to the db and commit.
 
