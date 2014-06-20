@@ -174,6 +174,7 @@ if __name__ == "__main__":
 
     log.info("Now parrot.id is {} and norwegian_blue.id is {}".format(
         parrot.id, norwegian_blue.id))    
+
     
     #################################################
     #  Now it's up to you to complete this script ! #
@@ -186,12 +187,12 @@ if __name__ == "__main__":
     # Define a Pet class up above in this script with the other class definitions.
     # Pet should have a name, age, adopted attribute (which is boolean), breed_id, and shelter_id. 
 
-    # Also define a Shelter class. Shelters should have a name and phonenumber.
+    # Also define a Shelter class. Shelters should have a name and website address.
     # Keep in mind that a pet *must* have a breed, but it may or may not have a shelter.
 
     # Next, add two shelters to the database. The first shelter's name is "NYC Pet Orphanage",
     # and its number is 212-555-5555. The second shelter's name is "New Orleans Pet Hotel" and 
-    # its number is 504-555-5555. 
+    # its website is "http://www.neworleanspethotel.com". 
     # Add the shelters to the db and commit.
 
 
