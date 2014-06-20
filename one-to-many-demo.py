@@ -203,4 +203,5 @@ if __name__ == "__main__":
     # Finally, print a log message that indicates how many pets, breeds, and species 
     # we have in the database   
   
-
+    db_session.close()
+    log.info("all done!")
