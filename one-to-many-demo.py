@@ -40,6 +40,7 @@ class Species(Base):
     # database fields
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
+    breeds = relationship('Breed', backref="species")
 
     # methods
     def __repr__(self):
@@ -57,10 +58,7 @@ class Breed(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     species_id = Column(Integer, ForeignKey('species.id'), nullable=False ) 
-
-    # mapped relationships
-    species = relationship("Species", backref=backref('breeds', order_by=name) )           
-
+          
     # methods
     def __repr__(self):
         return "{}: {}".format(self.name, self.species) 
