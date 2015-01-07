@@ -241,7 +241,6 @@ if __name__ == "__main__":
     
     # Add your code that adds breed traits and links breeds with traits
     # here.
-
     #################################################
     
     golden = Breed(name = "Golden Retriever")
