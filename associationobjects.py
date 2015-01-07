@@ -66,7 +66,9 @@ class Breed(Base):
 #########################################################
 #   Add your code for BreedTraits object here			#
 #########################################################
-x_breed_traits_table = Table('x_breed_traits',Base.metadata, Column('breed_id',Integer,ForeignKey('breed.id'),nullable=False),Column('breed_traits_id',Integer,ForeignKey('breed_traits.id'),nullable=False))
+x_breed_traits_table = Table('x_breed_traits',Base.metadata, 
+Column('breed_id',Integer,ForeignKey('breed.id'),nullable=False),
+Column('breed_traits_id',Integer,ForeignKey('breed_traits.id'),nullable=False))
 
 class BreedTraits(Base):
 	__tablename__ = 'breed_traits'
@@ -112,6 +114,12 @@ class Pet(Base):
     breed_id = Column(Integer, ForeignKey('breed.id'), nullable=False ) 
     shelter_id = Column(Integer, ForeignKey('shelter.id') ) 
     
+    
+    @property
+    def nicknames(self):
+	 return [nicknames_association.pet for NicknameAssociations in self.pet_associations ]
+	 
+    
     # no foreign key here, it's in the many-to-many table        
     # mapped relationship, pet_person_table must already be in scope!
     people = relationship('Person', secondary=pet_person_table, backref='pets')
@@ -155,6 +163,20 @@ class Person(Base):
 
     def __repr__(self):
         return "Person: {} {}".format(self.first_name, self.last_name) 
+
+
+class NicknameAssociation(Base):
+	__table__name__ = "nickname_association"
+	id = Column(Integer,primary_key = True)
+	name = Column(String)
+	pet_id = Column(Integer, ForeignKey('pet.id'),nullable=False)
+	person_id = Column(Integer,ForeignKey('person.id',nullable =False)
+	# Check this
+	person = relationship('Person', backref=backref('pet_associations') )
+	pet = relationship('Pet',backref=backref('person_associations'))
+	
+	def __repr__(self):
+		return "NicknameAssociation( {} is {})".format(self.name,self.person.full_name,self.pet.name)
 
 
 ################################################################################
@@ -253,6 +275,13 @@ if __name__ == "__main__":
     golden.breed_traits.append(friendly)
     assert golden in friendly.traits
     
+    
+     # try some nickname associations
+     butters = NicknameAssociation(name="Butters")
+     goldie.pet_associations.append(NicknameAssociation(pet=butters)) 
+     
+     
+    print "The nicknames for golden are: {}".format(golden.nicknames())
     
     db_session.close()
     log.info("all done!")
