@@ -113,7 +113,8 @@ class Pet(Base):
     adopted = Column(Boolean)
     breed_id = Column(Integer, ForeignKey('breed.id'), nullable=False ) 
     shelter_id = Column(Integer, ForeignKey('shelter.id') ) 
-    
+    pet_asociations = relationship('nickname_association', backref=('pet') )
+  
     
     @property
     def nicknames(self):
@@ -134,7 +135,7 @@ class Person(Base):
     last_name = Column(String, nullable=False)
     age = Column(Integer)
     _phone = Column(String)
-
+    pet_asociations = relationship('nickname_association', backref=('person') )
     # mapped relationship 'pets' from backref on Pet class, so we don't
     # need to add it here.
 
@@ -166,14 +167,13 @@ class Person(Base):
 
 
 class NicknameAssociation(Base):
-	__table__name__ = "nickname_association"
+	__tablename__ = "nickname_association"
 	id = Column(Integer,primary_key = True)
 	name = Column(String)
 	pet_id = Column(Integer, ForeignKey('pet.id'),nullable=False)
-	person_id = Column(Integer,ForeignKey('person.id',nullable =False)
+	person_id = Column(Integer,ForeignKey('person.id'),nullable =False)
 	# Check this
-	person = relationship('Person', backref=backref('pet_associations') )
-	pet = relationship('Pet',backref=backref('person_associations'))
+	
 	
 	def __repr__(self):
 		return "NicknameAssociation( {} is {})".format(self.name,self.person.full_name,self.pet.name)
@@ -277,8 +277,8 @@ if __name__ == "__main__":
     
     
      # try some nickname associations
-     butters = NicknameAssociation(name="Butters")
-     goldie.pet_associations.append(NicknameAssociation(pet=butters)) 
+    butters = NicknameAssociation(name="Butters")
+    goldie.pet_associations.append(NicknameAssociation(pet=butters)) 
      
      
     print "The nicknames for golden are: {}".format(golden.nicknames())
